@@ -1,0 +1,72 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tcp;
+
+/**
+ *
+ * @author anonymous
+ */
+public class Solvequardatic {
+    
+      double a,b,c;
+      String A,B,C;//for trim 
+      String trim;
+      double sqrtpart = b * b - 4 * a * c; 
+      double x, x1,x2,img;
+      String equation;//example "5*x^2+2*x-5";
+      
+ public Solvequardatic(String recived){//constructor
+     equation=recived;
+} 
+ public void cutABC(){// cut a and b ,c from string 
+      try{//check if "a" is found before x^2
+          
+       A=equation.substring(0,equation.indexOf("x")-1);
+       a=Double.parseDouble(A);
+       
+      }catch(Exception ex){
+         a=1;
+      }
+       
+       String _operator_b = equation.substring(equation.indexOf("x^2")+3,equation.indexOf("x^2")+4);//cut operator of b (- or +)
+       
+       if(_operator_b.equals("+"))//check if b positive
+       {
+        trim=equation.substring(equation.indexOf("x^2"),equation.length());
+        B = trim.substring(trim.indexOf("+"),trim.indexOf("*"));
+        b=Double.parseDouble(B);
+       }
+       else //if b negative
+       {
+        trim=equation.substring(equation.indexOf("x^2"),equation.length());
+         B = trim.substring(trim.indexOf("-"),trim.indexOf("*"));
+         b=Double.parseDouble(B);
+       }   
+        C=trim.substring(trim.indexOf("*x")+2,trim.length());
+        c=Double.parseDouble(C);
+}
+ public String  Solve ( ){
+          sqrtpart = b * b - 4 * a * c; 
+            if (sqrtpart > 0)
+            { 
+                x1 = (-b +Math.sqrt(sqrtpart)) / (2 * a);
+                x2 = (-b - Math.sqrt(sqrtpart)) / (2 * a);
+                return x1+" "+ x2;
+            }
+            else if (sqrtpart < 0)
+            {
+                sqrtpart = -sqrtpart;
+                x = -b / (2 * a);
+               img = Math.sqrt(sqrtpart) / (2 * a);
+                return x+" "+img;
+            }
+            else //d=0
+            {
+                x = (-b+Math.sqrt(sqrtpart)) / (2 * a);
+                return "imagine number :"+ x;
+            }
+        }
+}
